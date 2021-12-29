@@ -1,0 +1,145 @@
+// colors
+$background: #F7F9F9;     // blueish offwhite
+$primary: #BED8D4;        // mint-turqoise-teal-thing
+$accent: #E77375;         // salmon
+$text: #2D3047;           // deep space blue
+
+// media query breakpoints
+$breakpoints: ( 
+  'small':  (max-width: 425px),
+  'medium': ((max-width: 750px) and (min-width: 425.01px)),
+  'large':  (min-width: 750.01px),
+  'medlarge': (min-width: 425.01px)
+) !default;
+
+@mixin break($breakpoint) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Prints a media query based on the value
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+@function large-prop($ratio) {
+  @return calc(min(900px, 90vw) * $ratio);
+}
+
+// sets values of property to small, med and large according to
+// media breakpoints
+@mixin set-bp-values($property, $small, $med, $large) {
+    @media #{inspect(map-get($breakpoints, 'small'))} {
+        #{$property}: $small;
+    }
+    @media #{inspect(map-get($breakpoints, 'medium'))} {
+        #{$property}: $med;
+    }
+    @media #{inspect(map-get($breakpoints, 'large'))} {
+        #{$property}: $large;
+    }
+}
+
+* {
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background-color: $background;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: $text;
+}
+a {
+  text-decoration: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.container {
+  margin: auto 0px;
+  padding: 0px;
+  
+  border-left: 1px solid lightblue;
+  border-right: 1px solid lightblue;
+
+  @include set-bp-values('width', 95vw, 90vw, large-prop(1))
+}
+
+.title {
+  // text-align: center;
+  @include set-bp-values('font-size', 15vw, 12vw, large-prop(0.15));
+  @include set-bp-values('margin', 8vw 0 4vw, 6vw 0 3vw, large-prop(0.08) 0 large-prop(0.04));
+  @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
+}
+
+.intro {
+  // text-align: center;
+  @include set-bp-values('font-size', 20px, 24px, 28px);
+  @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
+  @include set-bp-values('margin-bottom', 4vw, 3vw, large-prop(0.04));
+}
+
+
+.contacts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.contact {
+  display: flex;
+  flex-direction: row;
+  // justify-content: center;
+  align-items: center;
+  width: 33%;
+  @include set-bp-values('font-size', 16px, 20px, 22px);
+  @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
+}
+
+.contact-icon > img {
+  // background-color: $primary;
+  display: inline-block;
+  @include set-bp-values('height', 20px, 20px, 30px);
+  @include set-bp-values('width', 20px, 20px, 30px);
+  margin-right: 10px;
+}
+
+.contact-name {
+  display: inline-block;
+  font-size: inherit;
+}
+
+.big-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.big-card {
+  border: none;
+  border-radius: 5px;
+  box-shadow: grey;
+  height: auto;
+  @include set-bp-values('width', 95%, 45%, 45%);
+
+}
+
+.big-card img {
+  width: 100%;
+}
