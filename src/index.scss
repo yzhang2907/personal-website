@@ -1,9 +1,11 @@
 // colors
-$background: #F7F9F9;     // blueish offwhite
+$card-background: #F7F9F9;     // blueish offwhite
+$background: #ffffff;     // WHITE!!!
 $primary: #BED8D4;        // mint-turqoise-teal-thing
 $accent: #E77375;         // salmon
-$text: #2D3047;           // deep space blue
-
+// $text: #2D3047;           // deep space blue
+$text: #211A1E;           // off-black
+$text-subtitle: #475B5A;  // spoiled guacamole
 // media query breakpoints
 $breakpoints: ( 
   'small':  (max-width: 425px),
@@ -11,6 +13,9 @@ $breakpoints: (
   'large':  (min-width: 750.01px),
   'medlarge': (min-width: 425.01px)
 ) !default;
+
+// Roboto, we will make this local later
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto+Mono&family=Roboto+Slab&family=Roboto:wght@400;900&display=swap');
 
 @mixin break($breakpoint) {
   // If the key exists in the map
@@ -34,22 +39,23 @@ $breakpoints: (
 // sets values of property to small, med and large according to
 // media breakpoints
 @mixin set-bp-values($property, $small, $med, $large) {
-    @media #{inspect(map-get($breakpoints, 'small'))} {
-        #{$property}: $small;
-    }
-    @media #{inspect(map-get($breakpoints, 'medium'))} {
-        #{$property}: $med;
-    }
-    @media #{inspect(map-get($breakpoints, 'large'))} {
-        #{$property}: $large;
-    }
+  @media #{inspect(map-get($breakpoints, 'small'))} {
+      #{$property}: $small;
+  }
+  @media #{inspect(map-get($breakpoints, 'medium'))} {
+      #{$property}: $med;
+  }
+  @media #{inspect(map-get($breakpoints, 'large'))} {
+      #{$property}: $large;
+  }
 }
 
 * {
   font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  //   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  //   sans-serif;
+  font-family: Roboto;
   background-color: $background;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -73,8 +79,8 @@ a {
   margin: auto 0px;
   padding: 0px;
   
-  border-left: 1px solid lightblue;
-  border-right: 1px solid lightblue;
+  // border-left: 1px solid lightblue;
+  // border-right: 1px solid lightblue;
 
   @include set-bp-values('width', 95vw, 90vw, large-prop(1))
 }
@@ -83,14 +89,20 @@ a {
   // text-align: center;
   @include set-bp-values('font-size', 15vw, 12vw, large-prop(0.15));
   @include set-bp-values('margin', 8vw 0 4vw, 6vw 0 3vw, large-prop(0.08) 0 large-prop(0.04));
-  @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
+  // @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
+  font-family: Montserrat;
+  font-weight: 900;
+  // display: inline;
+  background-image: linear-gradient(#fff 70%, $primary 55%);
 }
 
 .intro {
   // text-align: center;
-  @include set-bp-values('font-size', 20px, 24px, 28px);
-  @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
-  @include set-bp-values('margin-bottom', 4vw, 3vw, large-prop(0.04));
+  @include set-bp-values('font-size', 4vw, 3vw, large-prop(0.03));
+  // @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
+  @include set-bp-values('margin-bottom', 4vw, 3vw, large-prop(0.03));
+  color: $text-subtitle;
+  font-family: Roboto Mono;
 }
 
 
@@ -98,20 +110,22 @@ a {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
+  @include set-bp-values('margin-bottom', 5vw, 4vw, large-prop(0.04));
 }
 
 .contact {
   display: flex;
   flex-direction: row;
-  // justify-content: center;
+  justify-content: center;
   align-items: center;
-  width: 33%;
+  width: 10%;
   @include set-bp-values('font-size', 16px, 20px, 22px);
   @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
 }
 
-.contact-icon > img {
+.contact-icon > a > img {
   // background-color: $primary;
   display: inline-block;
   @include set-bp-values('height', 20px, 20px, 30px);
@@ -124,22 +138,116 @@ a {
   font-size: inherit;
 }
 
-.big-cards {
+.big-cards, .small-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @include set-bp-values('margin-bottom', 5vw, 4vw, large-prop(0.04));
+  
+}
+
+$bc-radius: 0px;
+$bc-rounded-top: $bc-radius $bc-radius 0px 0px;
+$bc-rounded-bottom: 0px 0px $bc-radius $bc-radius;
+$card-shadow: $primary;
+$deviation: 10px;
+$fuzzy: 1px;
+
+.big-card {
+  border-radius: $bc-radius;
+  background-color: $card-background;
+  height: auto;
+  @include set-bp-values('width', 95%, 95%, 48%);
+  @include set-bp-values('margin', 10px, 15px, 15px 0px);
+  -moz-box-shadow: $deviation $deviation $fuzzy $card-shadow;
+  -webkit-box-shadow: $deviation $deviation $fuzzy $card-shadow;
+  box-shadow: $deviation $deviation $fuzzy $card-shadow;
+}
+
+.big-card img {
+  border-radius: $bc-rounded-top;
+  width: 100%;
+}
+.big-card-text-container {
+  background-color: inherit;
+  border-radius: $bc-rounded-bottom;
+  @include set-bp-values('padding', 5px, 5px, 15px 5px);
+}
+
+.big-card-title {
+  background-color: inherit;
+  font-family: Montserrat;
+  font-weight: 400;
+  @include set-bp-values('font-size', 20px, 22px, 24px);
+  @include set-bp-values('padding', 5px 5px, 5px 10px, 5px 15px);
+}
+
+.big-card-desc {
+  background-color: inherit;
+  border-radius: $bc-rounded-bottom;
+  @include set-bp-values('padding', 5px 10px, 5px 15px, 5px 20px);
+}
+
+$sc-radius: 5px;
+$sc-rounded-top: $sc-radius $sc-radius 0px 0px;
+$sc-rounded-bottom: 0px 0px $sc-radius $sc-radius;
+
+.small-card {
+  border-radius: $sc-radius;
+  background: inherit;
+  height: auto;
+  @include set-bp-values('width', 45%, 45%, 22.5%);
+}
+
+.small-card img {
+  width: 100%;
+  border-radius: $sc-rounded-top;
+}
+
+.small-card-text-container {
+  border-radius: $sc-rounded-bottom;
+  @include set-bp-values('padding', 5px, 5px, 10px);
+}
+
+.small-card-title {
+  @include set-bp-values('font-size', 20px, 22px, 24px);
+  @include set-bp-values('padding', 5px 5px, 5px 10px, 5px 15px);
+}
+
+.small-card-desc {
+  border-radius: $sc-rounded-bottom;
+  @include set-bp-values('padding', 5px 5px, 5px 10px, 5px 15px);
+}
+
+.skills {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.skill {
+  @include set-bp-values('width', 100%, 100%, 48%);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  // align-items: center;
+  height: 44px;
+}
+.skill-title {
+  flex-grow: 0;
+  flex-shrink: 0;
+  @include set-bp-values('flex-basis', 80px, 90px, 100px);
+}
+.skill-level {
+  flex-grow: 0;
+  flex-shrink: 1;
+  @include set-bp-values('flex-basis', 220px, 220px, 220px);
+  height: 100%;
 }
 
-.big-card {
-  border: none;
-  border-radius: 5px;
-  box-shadow: grey;
-  height: auto;
-  @include set-bp-values('width', 95%, 45%, 45%);
-
-}
-
-.big-card img {
+.skill-bar {
   width: 100%;
 }

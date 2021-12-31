@@ -118,7 +118,7 @@ a {
   }
 }
 
-.contact-icon > img {
+.contact-icon > a {
   display: inline-block;
   margin-right: 10px;
 }
