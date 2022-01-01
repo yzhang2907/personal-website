@@ -114,13 +114,13 @@ a:hover {
 
 .header span {
   font-family: Montserrat;
-  @include set-bp-values('font-size', 8vw, 4vw, large-prop(0.05));
+  @include set-bp-values('font-size', 8vw, max(48px, 4vw), large-prop(0.05));
   // background-image: linear-gradient(#fff 70%, $primary 55%);
 }
 
 .intro {
   @include set-bp-values('text-align', center, left, left);
-  @include set-bp-values('font-size', 5vw, 3vw, large-prop(0.03));
+  @include set-bp-values('font-size', 5vw, max(18px, 3vw), large-prop(0.03));
   // @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
   @include set-bp-values('margin-bottom', 4vw, 3vw, large-prop(0.03));
   color: $text-subtitle;
@@ -195,6 +195,13 @@ $fuzzy: 1px;
 .big-card img {
   border-radius: $bc-rounded-top;
   width: 100%;
+}
+
+.big-card-image {
+  border-radius: $bc-rounded-top;
+  width: 100%;
+  @include set-bp-values('height', 30vw, 24vw, 180px);
+  
 }
 .big-card-text-container {
   background-color: inherit;

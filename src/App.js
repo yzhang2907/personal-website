@@ -4,6 +4,13 @@ import ICON_LINKEDIN from './icons/linkedin-brands.svg';
 import ICON_GITHUB from './icons/github-square-brands.svg';
 import ICON_EMAIL from './icons/envelope-square-solid.svg';
 
+import IMG_PINYIN from './img/pinyin-moist.png';
+import IMG_WAVESTEP from './img/jumbo0-wavestep.png';
+import IMG_LAUREATE from './img/jumbo1-laureate.png';
+import IMG_WICK from './img/jumbo2-wick.jpg';
+import IMG_CAR from './img/jumbo3-car.JPG';
+import IMG_FMCSA from './img/jumbo4-fmcsa.PNG';
+
 function Title() {
   return (
     <div className="title">
@@ -57,7 +64,12 @@ function BigCards(props) {
 function BigCard(props) {
   return (
     <div className="big-card">
-      <img src='https://via.placeholder.com/310x200' />
+      {/* <img src='https://via.placeholder.com/310x200' /> */}
+      <div className='big-card-image' style={{
+        backgroundImage: `url(${props.image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center'
+      }}></div>
       <div className='big-card-text-container'>
         <div className="big-card-title">{props.title}</div>
         <div className='big-card-subtitle'>{props.subtitle}</div>
@@ -138,7 +150,7 @@ function Bar(props) {
     d={outerPath}
   />);
 
-  return (<svg viewbox={`0 0 ${orig*2} ${orig*2}`} className="skill-bar">
+  return (<svg /*viewBox={`0 0 ${orig*2} ${orig*2}`}*/ className="skill-bar">
     {inner}
     {outer}
   </svg>);
@@ -187,14 +199,16 @@ function App() {
       <BigCards>
         <BigCard 
           title="Pinyin-to-Hanzi Converter with N-gram Language Model"
+          image={IMG_PINYIN}
           subtitle="Artificial Intelligence Practicum, 2021">
           I designed, implemented, and evaluated 
-          a <a href=''>non-interactive pinyin-to-hanzi converter</a> for Chinese 
+          a <a href='https://github.com/yzhang2907/chinese-pinyin-transcriber'>non-interactive pinyin-to-hanzi converter</a> for Chinese 
           with a 93% character accuracy utilizing beam search 
           on a N-gram model built from a 200M-token corpus.  
         </BigCard>
         <BigCard 
           title="Wavestep"
+          image={IMG_WAVESTEP}
           subtitle="Finally Finish Something Jam, 2019">
           I and my friend made a <a href="https://cheddarmachine.itch.io/wavestep">
             3D scrolling shooting game</a> inspired by 
@@ -203,6 +217,7 @@ function App() {
         </BigCard>
         <BigCard 
           title="Large Vehicles Crash Analysis"
+          image={IMG_FMCSA}
           subtitle="FMCSA Internship, 2020">
           Analyzed and visualized Maryland large trucks and 
           buses crash corridors data using ArcGIS, ArcPy, and R; 
@@ -212,22 +227,24 @@ function App() {
         </BigCard>
         <BigCard 
           title="Offer Database"
+          image={IMG_LAUREATE}
           subtitle="Laureate International Universities Internship, 2019"
           desc="Analyzed student discount data (Oracle and Microsoft DBs) to aggregate 
           information and roll out future discounts more effectively. Used SQL, Python,
            NumPy, Pandas, Jupyter Notebook."/>
         <BigCard 
           title="Remote Vehicle"
-          subtitle="1st Place, 2019 Lockheed Martin Make-A-Thon"
+          image={IMG_CAR}
+          subtitle="1st Place, Lockheed Martin Make-A-Thon 2019"
           desc="I led a team of three to build a remote control vehicle. Even with
            limited resources (foam, cardboard, motors, gears, and oddly-shaped wheels), 
            we still made it work as expected!"/>
         <BigCard 
           title="Cam Jam"
-          subtitle="Best Feel-Good Award, 2018 Big Red Hacks"
-          desc="I led a team of three to build a remote control vehicle. Even with
-           limited resources (foam, cardboard, motors, gears, and oddly-shaped wheels), 
-           we still made it work as expected!"/>
+          image={IMG_WICK}
+          subtitle="Best Feel-Good Award, Big Red Hacks 2018"
+          desc="My team made a dance game using Tensorflow pose estimation to 
+          recognize dance moves in real time. No need for hardware input, just dance!"/>
       </BigCards>
       {/* <SmallCards>
         <SmallCard title="Offer Database" 
@@ -249,14 +266,14 @@ function App() {
       </SmallCards>  */}
       <Header name={"Skills"} />
       <Skills>
-        <Skill title={"Python"} level={10} />
-        <Skill title={"JavaScript"} level={9} />
-        <Skill title={"HTML/CSS"} level={10} />
-        <Skill title={"React.js"} level={7} />
-        <Skill title={"SQL"} level={9} />
-        <Skill title={"fard"} level={10} />
-        <Skill title={"C++"} level={6} />
-        <Skill title={"employ"} level={1} />
+        <Skill title={"Python"} level={9} />
+        <Skill title={"JavaScript"} level={8} />
+        <Skill title={"HTML/CSS"} level={9} />
+        <Skill title={"React"} level={6} />
+        <Skill title={"SQL"} level={8} />
+        <Skill title={"pandas"} level={7} />
+        <Skill title={"NumPy"} level={7} />
+        <Skill title={"C/C++"} level={5} />
       </Skills>
       <Footer 
       year={new Date().getFullYear()}
