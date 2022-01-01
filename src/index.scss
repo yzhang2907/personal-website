@@ -2,7 +2,10 @@
 $card-background: #F7F9F9;     // blueish offwhite
 $background: #ffffff;     // WHITE!!!
 $primary: #BED8D4;        // mint-turqoise-teal-thing
-$accent: #E77375;         // salmon
+$primary-lighter: #cfe3e0; // lighter primary for card backgrounds
+$link: #e6f6f3;           // lighter, greener mint-turqoise-teal-thing
+// $accent: #E77375;         // salmon
+$accent: #586BA4;
 // $text: #2D3047;           // deep space blue
 $text: #211A1E;           // off-black
 $text-subtitle: #475B5A;  // spoiled guacamole
@@ -15,7 +18,7 @@ $breakpoints: (
 ) !default;
 
 // Roboto, we will make this local later
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto+Mono&family=Roboto+Slab&family=Roboto:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto+Mono&family=Roboto+Slab&family=Roboto:wght@400;500&display=swap');
 
 @mixin break($breakpoint) {
   // If the key exists in the map
@@ -52,9 +55,6 @@ $breakpoints: (
 
 * {
   font-size: 16px;
-  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  //   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  //   sans-serif;
   font-family: Roboto;
   background-color: $background;
   -webkit-font-smoothing: antialiased;
@@ -65,7 +65,16 @@ $breakpoints: (
   color: $text;
 }
 a {
+  // text-decoration: underline $text;
   text-decoration: none;
+  background-color: $link;
+  // background-color: inherit;
+  color: $text-subtitle;
+  font-weight: 500;
+}
+
+a:hover {
+  background-color: $primary;
 }
 
 #root {
@@ -82,23 +91,36 @@ a {
   // border-left: 1px solid lightblue;
   // border-right: 1px solid lightblue;
 
-  @include set-bp-values('width', 95vw, 90vw, large-prop(1))
+  @include set-bp-values('width', 90vw, 90vw, large-prop(1))
 }
 
 .title {
   // text-align: center;
-  @include set-bp-values('font-size', 15vw, 12vw, large-prop(0.15));
-  @include set-bp-values('margin', 8vw 0 4vw, 6vw 0 3vw, large-prop(0.08) 0 large-prop(0.04));
   // @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
+  // display: inline;
+  @include set-bp-values('text-align', center, left, left);
+  @include set-bp-values('font-size', 15vw, 12vw, large-prop(0.15));
+  @include set-bp-values('margin', 10vw 0 5vw, 8vw 0 4vw, large-prop(0.10) 0 large-prop(0.04));
+  
   font-family: Montserrat;
   font-weight: 900;
-  // display: inline;
+  
   background-image: linear-gradient(#fff 70%, $primary 55%);
 }
 
+.header {
+  @include set-bp-values('margin-bottom', 5vw, 4vw, large-prop(0.04));
+}
+
+.header span {
+  font-family: Montserrat;
+  @include set-bp-values('font-size', 8vw, 4vw, large-prop(0.05));
+  // background-image: linear-gradient(#fff 70%, $primary 55%);
+}
+
 .intro {
-  // text-align: center;
-  @include set-bp-values('font-size', 4vw, 3vw, large-prop(0.03));
+  @include set-bp-values('text-align', center, left, left);
+  @include set-bp-values('font-size', 5vw, 3vw, large-prop(0.03));
   // @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
   @include set-bp-values('margin-bottom', 4vw, 3vw, large-prop(0.03));
   color: $text-subtitle;
@@ -123,6 +145,11 @@ a {
   width: 10%;
   @include set-bp-values('font-size', 16px, 20px, 22px);
   @include set-bp-values('padding', 0 10px, 0 30px, 0 50px);
+}
+
+.contact-icon > a {
+  // background-color: $primary;
+  background-color: inherit;
 }
 
 .contact-icon > a > img {
@@ -150,7 +177,7 @@ a {
 $bc-radius: 0px;
 $bc-rounded-top: $bc-radius $bc-radius 0px 0px;
 $bc-rounded-bottom: 0px 0px $bc-radius $bc-radius;
-$card-shadow: $primary;
+$card-shadow: $primary-lighter;
 $deviation: 10px;
 $fuzzy: 1px;
 
@@ -183,10 +210,18 @@ $fuzzy: 1px;
   @include set-bp-values('padding', 5px 5px, 5px 10px, 5px 15px);
 }
 
+.big-card-subtitle {
+  background-color: inherit;
+  @include set-bp-values('padding', 3px 3px, 3px 10px, 3px 15px);
+  // font-family: Montserrat;
+  font-style: italic;
+}
+
 .big-card-desc {
   background-color: inherit;
   border-radius: $bc-rounded-bottom;
-  @include set-bp-values('padding', 5px 10px, 5px 15px, 5px 20px);
+  // @include set-bp-values('padding', 5px 10px, 5px 15px, 5px 20px);
+  @include set-bp-values('margin', 5px 5px, 5px 10px, 5px 15px);
 }
 
 $sc-radius: 5px;
@@ -232,22 +267,29 @@ $sc-rounded-bottom: 0px 0px $sc-radius $sc-radius;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  // align-items: center;
+  justify-content: center;
   height: 44px;
 }
 .skill-title {
   flex-grow: 0;
   flex-shrink: 0;
-  @include set-bp-values('flex-basis', 80px, 90px, 100px);
+  @include set-bp-values('flex-basis', 85px, 90px, 100px);
+  @include set-bp-values('font-size', 18px, 18px, large-prop(0.02));
 }
 .skill-level {
   flex-grow: 0;
   flex-shrink: 1;
+  margin-left: 10px;
   @include set-bp-values('flex-basis', 220px, 220px, 220px);
   height: 100%;
 }
 
 .skill-bar {
   width: 100%;
+}
+
+.footer {
+  color: $text-subtitle;
+  font-size: 12px;
+  @include set-bp-values('margin', 15vw 0 5vw, 12vw 0 4vw, large-prop(0.15) 0 large-prop(0.04));
 }
